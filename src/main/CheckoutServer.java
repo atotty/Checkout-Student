@@ -19,6 +19,7 @@ public class CheckoutServer {
     private String resourceFileName;
     private List<String> resourceList;
     private Thread[] threads;
+    private boolean exitSignaled = false;
 
     /*
      * Delay in ms for a thread when it finds an empty job queue.
@@ -108,7 +109,7 @@ public class CheckoutServer {
                 String response;
 
                 // loop forever
-                while (true) {
+                while (!exitSignaled) {
                     request = null;
                     response = null;
 
@@ -160,6 +161,23 @@ public class CheckoutServer {
     }
 
     /**
+     * Waits for the worker threads to finish their jobs and joins them.
+     */
+    public void cleanThreads() {
+        // tell threads to stop
+        exitSignaled = true;
+        // wait for threads to finish before exiting
+        for (int i = 0; i < numThreads; i++) {
+            try {
+                threads[i].join();
+                Util.log(3, "Thread " + i + " finished.");
+            } catch (InterruptedException e) {
+                Util.logError(0, e);
+            }
+        }
+    }
+
+    /**
      * Starts the server by initializing a server socket on this.port.
      * Listens for client requests and creates a socket for each client that
      * successfully connects.
@@ -169,6 +187,13 @@ public class CheckoutServer {
      * and process.
      */
     public void start() {
+        // handle SIGINT: add shutdown hook to clean up resources
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Util.log(0, "Shutting down server.");
+            cleanThreads();
+        }));
+
+
         ServerSocket server = null;
         Socket socket = null;
         ObjectOutputStream output = null;
