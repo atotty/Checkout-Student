@@ -1,11 +1,11 @@
-#Project 3: Checkout Application
+# Project 3: Checkout Application
 In this project you will complete an online checkout manager that simulates the purchase of tickets for an event venue. The project consists of a multithreaded server that handles requests for seats at a venue and a multithreaded client that generates a synthetic workload to run against the server. Multiple requests should be processed simultaneously. Requests have non-negative priority numbers, where 0 is of highest priority. This priority should be observed across all requests (i.e. priority number 0 requests should be handled before priority number 1 requests, which should in turn be handled before priority number 2 requests, and so on). For two requests of the same priority, the first request to arrive should be processed first. 
 
 The server follows a multithreaded design known as a boss-worker model with a shared job queue. The primary thread, the boss, receives requests from clients and adds those requests to a job queue. Worker threads pick up jobs from the job queue and handle the corresponding request. 
 
 Much of the synchronization required for multithreading is handled for you. Your primary task is to build the server’s job queue that worker threads will use to pick up jobs. You will provide the queue structure, operations on the queue, and implementations of comparisons for items in the queue. 
 
-##Project Structure
+## Project Structure
 The files included in the project are as follows. Files you need to modify are marked in bold. Your tasks are identified by comments of the form **_TODO: STUDENT INSTRUCTION_**. The program can be run by running ServerMain.java and ClientMain.java independently. 
 
 - CheckoutClient.java - Represents a client that can make requests of the CheckoutServer. 
