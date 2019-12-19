@@ -193,7 +193,6 @@ public class CheckoutServer {
             cleanThreads();
         }));
 
-
         ServerSocket server = null;
         Socket socket = null;
         ObjectOutputStream output = null;
@@ -243,7 +242,8 @@ public class CheckoutServer {
                  * STUDENT INSTRUCTION:
                  * Verify the format of the request message. If the message is malformed,
                  * don't add it to the job queue, but immediately respond to the client with the
-                 * response "INVALID".
+                 * response "INVALID". Any request not of the form "[RESOURCE],[PRIORITY]" is
+                 * considered malformed.
                  */
 
                 // if message is malformed, don't add to queue
