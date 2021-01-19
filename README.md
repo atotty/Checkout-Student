@@ -44,7 +44,7 @@ _Note: Due to how threads are managed, there is no guarantee that the server, if
 
 - (5 pts.) Server can be multithreaded and handles multiple simultaneous requests without race conditions. 
 
-- (5 pts.) RequestItem is comparable and RequestItemComparator has been meaningfully implemented. 
+- (5 pts.) RequestItem is comparable and/or RequestItemComparator has been meaningfully implemented. 
 
 - (5 pts.) You have completed student_readme.md to describe your approach to solving the problems you encountered while creating it. This need not be a diary, but your design choices should be clearly explained here.
     - What design choices did you make? Why? 
