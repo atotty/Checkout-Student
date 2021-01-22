@@ -30,7 +30,7 @@ public class CheckoutServer {
      * your machine is struggling while running the server. Values should be
      * non-negative.
      */
-    private static final int SPIN_DELAY = 1;
+    private static final int SPIN_DELAY = 1000;
 
     /*
      * TODO:
@@ -110,6 +110,13 @@ public class CheckoutServer {
 
                 // loop forever
                 while (!exitSignaled) {
+                    // slows the server threads down
+                    try {
+                        Thread.sleep(SPIN_DELAY);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     request = null;
                     response = null;
 
@@ -120,11 +127,6 @@ public class CheckoutServer {
                     // check if queue was empty
                     if (request == null){
                         Util.log(4, "Request queue empty.");
-                        try {
-                            Thread.sleep(SPIN_DELAY);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
                         continue;
                     }
 
