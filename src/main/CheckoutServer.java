@@ -91,7 +91,7 @@ public class CheckoutServer {
      * @param resource The requested resource in the form of a string.
      * @return True if resource was successfully claimed, false otherwise.
      */
-    private synchronized boolean getResourceFromList(String resource) {
+    private synchronized boolean removeResourceFromList(String resource) {
 
         return false;
     }
@@ -141,7 +141,7 @@ public class CheckoutServer {
                      * or
                      *      "Selection [RESOURCE] unavailable."
                      *
-                     * Note: you should use the synchronized method getResourceFromList to ensure thread safety.
+                     * Note: you should use the synchronized method removeResourceFromList to ensure thread safety.
                      */
 
                     // check request against resource list, if resource available, claim it, else tell client not available
